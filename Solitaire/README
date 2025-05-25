@@ -1,0 +1,26 @@
+Pasjans
+
+-------------Instrukcja-----------:
+
+----Jak uruchamiać----:
+
+--robiłem w Visual Studio Code, więc mogę potwierdzić, że projekt w pełni działa w visual studio 2022
+--UWAGA! żeby granie było możliwe w visual studio 2022/2019 trzeba rozszerzyć okno z aplikacją konsolową, aby wszystkie kolumny były widoczne
+--aby uruchomić projekt w Visual Studio Code, należy zainstalować rozszerzenie C# i .NET Core SDK
+--aby uruchomić projekt w Visual Studio 2022/2019, należy otworzyć katalog z projektem i kliknąć dwukrotnie na plik Solitaire.csproj
+
+----Kontrolki----:
+
+--przenieś kartę z jednej kolumny do drugiej kolumny -- 'mv <-numer kolumny-> <-numer kolumny docelowej-> <-ilość kart->'
+--przenieś kartę ze stosu do wskazanej kolumny -- 'mv stock <-numer kolumny->'
+--przenieś kartę do wskazanego stosu końcowego -- 'mv foundation <-numer kolumny, z której należy przenieść kartę-> <-nazwa stosu. do którego należy przemieścić kartę->'
+--odkryj następną kartę ze stosu -- 'nextCard'
+--zresetuj listę odkrytych kart -- 'reset'
+--wyświetl listę dostępnych komend -- 'help'
+--zakończ grę -- 'exit'
+--zacznij od nowa -- 'restart'
+
+np.:
+mv 1 2 2 -- chcę przenieść 2 karty z pierwszej kolumny do drugiej
+mv foundation 5 Hearts -- chcę przenieść kartę do stosu końcowego kier(serc)
+mv stock 7 -- chcę przenieść ostatnią odkrytą kartę do 7 kolumny

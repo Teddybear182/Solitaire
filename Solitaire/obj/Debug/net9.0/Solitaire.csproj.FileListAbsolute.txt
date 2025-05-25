@@ -1,0 +1,14 @@
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\bin\Debug\net9.0\Solitaire.exe
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\bin\Debug\net9.0\Solitaire.deps.json
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\bin\Debug\net9.0\Solitaire.runtimeconfig.json
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\bin\Debug\net9.0\Solitaire.dll
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\bin\Debug\net9.0\Solitaire.pdb
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.AssemblyInfoInputs.cache
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.AssemblyInfo.cs
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.csproj.CoreCompileInputs.cache
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.dll
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\refint\Solitaire.dll
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.pdb
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\Solitaire.genruntimeconfig.cache
+C:\Users\Tikhon\Documents\random\solitaire\Solitaire\obj\Debug\net9.0\ref\Solitaire.dll
