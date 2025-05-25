@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.Data.Common;
 
 
-//----główna klasa gry----
+//----main game class----
 public class Game
 {
   static List<Card> deck = new List<Card>();
@@ -33,8 +33,8 @@ public class Game
   public void StartGame()
   {
     Console.Clear();
-    Console.WriteLine("\n\n******Witam w grze pasjans!******");
-    Console.WriteLine("     >>>>  Wpisz swój ruch   <<<<     \n\n");
+    Console.WriteLine("\n\n******Welcome to Solitaire!******");
+    Console.WriteLine("     >>>>  Enter your move   <<<<     \n\n");
 
     deck = CreateDeck();
     columns = CreateColumns();
@@ -44,8 +44,8 @@ public class Game
 
     int moveCounter = 0;
 
-    Console.WriteLine("Aby zobaczyć dostępne komendy wpisz 'help'");
-    Console.WriteLine("Aby zakończyć grę wpisz 'exit'\n");
+    Console.WriteLine("To see available commands type 'help'");
+    Console.WriteLine("To end the game type 'exit'\n");
     ShuffleDeck();
     ShuffleDeck();
     ShuffleDeck();
@@ -54,7 +54,7 @@ public class Game
     DisplayDeck();
     stock.DisplayStock();
     foundation.DisplayFoundation();
-    Console.WriteLine($" >>>>  Ruch nr {moveCounter}:  <<<<<\n");
+    Console.WriteLine($" >>>>  Move nr {moveCounter}:  <<<<<\n");
 
     var input = Console.ReadLine();
     while (true)
@@ -68,18 +68,18 @@ public class Game
         stock.DisplayStock();
         foundation.DisplayFoundation();
         win.CheckWin();
-        Console.WriteLine($" >>>>  Ruch nr {moveCounter}:  <<<<<\n");
+        Console.WriteLine($" >>>>  Move nr {moveCounter}:  <<<<<\n");
         input = Console.ReadLine();
       }
       else
       {
-        Console.WriteLine("nieprawidłowe polecenie\n");
+        Console.WriteLine("invalid command\n");
         input = Console.ReadLine();
       }
     }
   }
 
-  //twory listy kolumn
+  //creates columns
   public Column[] CreateColumns()
   {
     Column[] columns = new Column[7];
@@ -90,7 +90,7 @@ public class Game
     return columns;
   }
 
-  //tasuje talię kart
+  //shuffles the deck of cards
   public void ShuffleDeck()
   {
     Random rand = new Random();
@@ -103,7 +103,7 @@ public class Game
     }
   }
 
-  //tworzy talię kart
+  //creates a deck of cards
   public List<Card> CreateDeck()
   {
     List<Card> deck = new List<Card>();
@@ -118,7 +118,7 @@ public class Game
     return deck;
   }
 
-  //tworzy kolumny i dodaje do nich karty
+  //creates columns and adds cards to them
   public void ManagingColumns()
   {
     Console.WriteLine("\n");
@@ -149,7 +149,7 @@ public class Game
   }
 
 
-  //trudna funkcja do ładnego wyświetlania kolumn:)
+  //hard function for displaying the deck:)
   public void DisplayDeck()
   {
     int columnCount = 0;
@@ -168,7 +168,7 @@ public class Game
         tab = 0;
       }
       columnCount++;
-      header += new string(' ', tab) + $"Kolumna {columnCount}:";
+      header += new string(' ', tab) + $"Column {columnCount}:";
     }
     //Console.WriteLine($"Debug: maxRow == " + maxRow + $"\n");
     Console.WriteLine(header);
@@ -188,8 +188,8 @@ public class Game
           {
             tab = 0;
           }
-          //message += new string(' ', tab) + $"{columns[i].hiddenCards[row].Value} {columns[i].hiddenCards[row].Suit} (ukryta)";
-          message += new string(' ', tab) + $"XXXX (ukryta)";
+          //message += new string(' ', tab) + $"{columns[i].hiddenCards[row].Value} {columns[i].hiddenCards[row].Suit} (hidden)";
+          message += new string(' ', tab) + $"XXXX (hidden)";
           continue;
         }
         if (row - maxHiddenCards >= 0 && row - maxHiddenCards < maxShownCards)
@@ -209,7 +209,7 @@ public class Game
 }
 
 
-/*--klasa reprezentująca stosy końcowe--*/
+/*--class representing the foundation--*/
 public class Foundation
 {
   public class Pile
@@ -252,7 +252,7 @@ public class Foundation
     };
   }
 
-  //dodaje kartę do podstawy
+  //adds a card to the foundation
   public void AddCard(Card card, string suitName, Column fromColumn)
   {
     suitName = suitName.Trim();
@@ -260,7 +260,7 @@ public class Foundation
     //Console.WriteLine($"Debug: suitIndex == {suitIndex} pile == {pile}, allCards[pile] == {allCards[pile]}");
     if (pile == -1)
     {
-      Console.WriteLine("nie można dodać karty do podstawy\n");
+      Console.WriteLine("cant add card to foundation\n");
       return;
     }
 
@@ -275,7 +275,7 @@ public class Foundation
     }
     else if (allCards[pile].cards.Count == 0 && card.Value != 1)
     {
-      Console.WriteLine("nie można dodać karty do podstawy\n");
+      Console.WriteLine("cant add card to foundation\n");
     }
     else
     {
@@ -290,28 +290,28 @@ public class Foundation
       }
       else
       {
-        Console.WriteLine("nie można dodać karty do podstawy\n");
+        Console.WriteLine("cant add card to foundation\n");
       }
     }
   }
 
-  //usuwa kartę z podstawy
+  //removes a card from the foundation
   public void RemoveCard(Card card, string suitIndex)
   {
     suitIndex = suitIndex.Trim();
     int pile = Array.IndexOf(suits, suitIndex);
     if (allCards[pile].cards.Count == 0)
     {
-      Console.WriteLine("nie można usunąć karty z pustej podstawy!\n");
+      Console.WriteLine("cant remove card from empty foundation!\n");
       return;
     }
     allCards[pile].Remove(card);
   }
 
-  //wyświetla stosy końcowe
+  //displaying the foundation
   public void DisplayFoundation()
   {
-    Console.WriteLine("\nStosy końcowe:");
+    Console.WriteLine("\nFoundation:");
     foreach (Pile pile in allCards)
     {
       Console.WriteLine(pile.suit + ":");
@@ -321,13 +321,13 @@ public class Foundation
       }
       if (pile.cards.Count == 0)
       {
-        Console.WriteLine("- pusta");
+        Console.WriteLine("- empty");
       }
     }
     Console.WriteLine("\n");
   }
 
-  //sprawdza czy wszystkie stosy końcowe są pełne
+  //checking if the player has won
   public bool IsComplete()
   {
     return hearts.cards.Count == 13 && diamonds.cards.Count == 13 && clubs.cards.Count == 13 && spades.cards.Count == 13;
@@ -335,7 +335,7 @@ public class Foundation
 }
 
 
-/*--klasa reprezentująca stos rezerwowy kart--*/
+/*--class representing a stock pile of cards--*/
 public class Stock
 {
   public List<Card> cards;
@@ -346,26 +346,26 @@ public class Stock
     cards = Cards;
   }
 
-  //dodaje kartę do stosu rezerwowego
+  //adds a card to the stock
   public void AddCard(Card card)
   {
     cards.Add(card);
   }
 
-  //usuwa kartę ze stosu rezerwowego
+  //removes a card from the stock
   public void RemoveCard(Card card)
   {
-    waste.Remove(card);
+    cards.Remove(card);
   }
 
-  //dodaje kartę do odkrytych kart
+  //adds a card to the waste pile, removing it from the stock
   public void AddWaste(Card card)
   {
     cards.Remove(card);
     waste.Add(card);
   }
 
-  //resetuje odkryte karty, dodaje je z powrotem do stosu i tasuje
+  //resets the waste pile, moving all cards back to the stock and shuffling them
   public void ResetWaste()
   {
     foreach (Card card in waste)
@@ -376,7 +376,7 @@ public class Stock
     waste.Clear();
   }
 
-  //tasuje karty w stosie
+  //shuffles the cards in the stock
   public void ShuffleCards()
   {
     Random rand = new Random();
@@ -389,7 +389,7 @@ public class Stock
     }
   }
 
-  //przechodzi do następnej karty w stosie, dodaje poprzednią do odkrytych kart
+  //proceed to the next card in the stock, adding the previous one to the waste pile
   public void NextCard()
   {
     if (cards.Count > 0)
@@ -404,10 +404,10 @@ public class Stock
     }
   }
 
-  //wyświetla stos kart
+  //displaying stock pile
   public void DisplayStock()
   {
-    Console.WriteLine("\n\nStos kart:");
+    Console.WriteLine("\n\nStock Pile:");
     string stockOutput = "";
     foreach (Card card in cards)
     {
@@ -417,10 +417,10 @@ public class Stock
     DisplayWaste();
   }
 
-  //wyświetla odkryte karty
+  //displaying the waste pile
   public void DisplayWaste()
   {
-    Console.WriteLine("\n\nOdkryte karty:");
+    Console.WriteLine("\n\nWaste Pile:");
     string wasteOutput = "";
     foreach (Card card in waste)
     {
@@ -431,7 +431,7 @@ public class Stock
 }
 
 
-/*--klasa reprezentująca kartę--*/
+/*--class representing a card--*/
 public class Card
 {
   public int Value;
@@ -445,7 +445,7 @@ public class Card
 }
 
 
-/*--klasa reprezentująca kolumnę kart--*/
+/*--class representing a column of cards--*/
 public class Column
 {
   public int Number;
@@ -459,32 +459,32 @@ public class Column
     hiddenCards = new List<Card>();
   }
 
-  //dodaje kartę do kolumny
+  //adding a shown card to the column
   public void AddCard(Card card)
   {
     shownCards.Add(card);
   }
 
-  //dodaje ukrytą kartę do kolumny
+  //adding a hidden card to the column
   public void AddHiddenCard(Card card)
   {
     hiddenCards.Add(card);
-    //Console.WriteLine($"dodano kartę {card.Value} {card.Suit} do kolumny {Number}");
+    //Console.WriteLine($"Card added {card.Value} {card.Suit} to column {Number}");
   }
 
-  //usuwa kartę z kolumny
+  //deletes a shown card from the column
   public void RemoveCard(Card card)
   {
     shownCards.Remove(card);
   }
 
-  //usuwa ukrytą kartę z kolumny
+  //deletes a hidden card from the column
   public void RemoveHiddenCard(Card card)
   {
     hiddenCards.Remove(card);
   }
 
-  //pokazuje ostatnią ukrytą kartę w kolumnie
+  //shows the last hidden card in the column
   public void ShowCard()
   {
     if (hiddenCards.Count > 0 && shownCards.Count == 0)
@@ -496,7 +496,7 @@ public class Column
   }
 
 
-  //sprawdza czy kolumna jest pusta
+  //checking if the column is empty
   public bool IsEmpty()
   {
     return shownCards.Count == 0 && hiddenCards.Count == 0;
@@ -504,7 +504,7 @@ public class Column
 }
 
 
-/*--klasa odpowiadająca za ruchy--*/
+/*--class responsible for moves--*/
 public class Move
 {
   private Column[] Columns;
@@ -520,7 +520,7 @@ public class Move
     foundation = Foundation;
   }
 
-  //metody do przenoszenia kart
+  //methods for moving cards
   public void moveCardColumn(int from, int to, int amount)
   {
     CheckAddToColumn(from, to, amount);
@@ -530,7 +530,7 @@ public class Move
   {
     if (stock.waste.Count == 0)
     {
-      Console.WriteLine("Brak odkrytych kart na stosie!");
+      Console.WriteLine("No uncovered cards in stock!");
       return;
     }
     Card card = stock.waste[stock.waste.Count - 1];
@@ -542,7 +542,7 @@ public class Move
     Column fromColumn = Columns[from];
     if (fromColumn.shownCards.Count == 0)
     {
-      Console.WriteLine("nie można przenieść karty z pustej kolumny!\n");
+      Console.WriteLine("cant move card from empty column!\n");
       return;
     }
     Card card = fromColumn.shownCards.Last();
@@ -550,7 +550,7 @@ public class Move
   }
 
 
-  //sprawdza czy można przenieść karty do kolumny
+  //checking if the column is empty
   public void CheckAddToColumn(int from, int to, int amount)
   {
     Column fromColumn = Columns[from];
@@ -558,18 +558,18 @@ public class Move
 
     if (amount <= 0 || amount > fromColumn.shownCards.Count)
     {
-      Console.WriteLine("\nnieprawidłowa liczba kart do przeniesienia!");
+      Console.WriteLine("\ninvalid number of cards to move!");
       return;
     }
 
-    List<Card> cardsToMove = fromColumn.shownCards.Skip(fromColumn.shownCards.Count - amount).ToList(); //nie wiedziałem że takie coś jak Skip() istnieje ale fajne
+    List<Card> cardsToMove = fromColumn.shownCards.Skip(fromColumn.shownCards.Count - amount).ToList();
     Card firstCard = cardsToMove.First();
     //Console.WriteLine($"Debug: firstCard == {firstCard.Value} {firstCard.Suit} fromColumn == {fromColumn.Number} toColumn == {toColumn.Number}");
     if (toColumn.shownCards.Count == 0)
     {
       if (firstCard.Value != 13)
       {
-        Console.WriteLine("\nnie można przenieść karty do pustej kolumny!");
+        Console.WriteLine("\ncant move card to empty column!");
         return;
       }
     }
@@ -581,7 +581,7 @@ public class Move
 
       if (!differentColorRed && !differentColorBlack || firstCard.Value != topCard.Value - 1)
       {
-        Console.WriteLine("nie można przenieść karty do tej kolumny!\n");
+        Console.WriteLine("cant move card to this column!\n");
         return;
       }
     }
@@ -604,7 +604,7 @@ public class Move
     {
       if (card.Value != 13)
       {
-        Console.WriteLine("nie można przenieść karty do pustej kolumny!\n");
+        Console.WriteLine("cant move card to empty column!\n");
         return;
       }
     }
@@ -616,7 +616,7 @@ public class Move
 
       if (!differentColorRed && !differentColorBlack || card.Value != topCard.Value - 1)
       {
-        Console.WriteLine("nie można przenieść karty do tej kolumny!\n");
+        Console.WriteLine("cant move card to this column!\n");
         return;
       }
     }
@@ -627,7 +627,7 @@ public class Move
 }
 
 
-/*--klasa interpretująca komendy, podawane przez gracza--*/
+/*--class interpreting commands given by the player--*/
 public class CommandHandler
 {
   private Move move;
@@ -643,7 +643,7 @@ public class CommandHandler
     foundation = Foundation;
   }
 
-  //metoda obsługująca komendy wpisywane przez gracza
+  //method for handling commands entered by the player
   public void handleCommand(string input)
   {
     try
@@ -693,33 +693,33 @@ public class CommandHandler
       }
       else if (commandParts[0] == "help")
       {
-        Console.WriteLine("Dostępne komendy:");
-        Console.WriteLine("mv <kolumna> <kolumna docelowa> <ilość kart> - przenieś karty z jednej kolumny do drugiej");
-        Console.WriteLine("mv stock <kolumna docelowa> - przenieś kartę ze stosu do kolumny");
-        Console.WriteLine("mv foundation <kolumna> <kolor karty> - przenieś kartę do wskazanego stosu końcowego");
-        Console.WriteLine("nextCard - odkryj następną kartę ze stosu");
-        Console.WriteLine("reset - zresetuj odkryte karty ze stosu");
-        Console.WriteLine("exit - zakończ grę");
-        Console.WriteLine("restart - rozpocznij nową grę\n");
+        Console.WriteLine("Available commands:");
+        Console.WriteLine("mv <column> <target column> <number of cards> - move cards from one column to another");
+        Console.WriteLine("mv stock <target column> - move card from stock to column");
+        Console.WriteLine("mv foundation <column> <card color> - move card to specified foundation");
+        Console.WriteLine("nextCard - reveal next card from stock");
+        Console.WriteLine("reset - reset revealed cards from stock");
+        Console.WriteLine("exit - end game");
+        Console.WriteLine("restart - start a new game\n");
       }
       else
       {
-        Console.WriteLine("nieprawidłowe polecenie\n");
+        Console.WriteLine("invalid command\n");
       }
     }
     catch (IndexOutOfRangeException)
     {
-      Console.WriteLine("nieprawidłowy indeks karty\n");
+      Console.WriteLine("invalid card index\n");
     }
     catch (Exception ex)
     {
-      Console.WriteLine($"wystąpił błąd: {ex.Message}\n");
+      Console.WriteLine($"an error occurred: {ex.Message}\n");
     }
   }
 }
 
 
-/*--klasa odpowiadająca za wygraną--*/
+/*--class responsible for win condition--*/
 public class Win
 {
   private Foundation foundation;
@@ -732,22 +732,13 @@ public class Win
     columns = Columns;
   }
 
-  //sprawdza czy gracz wygrał
+  //checking if the player has won
   public void CheckWin()
   {
     if (foundation.IsComplete() && columns.All(c => c.IsEmpty()))
     {
       isWin = true;
-      Console.WriteLine(">>>>>-Wygrałeś!-<<<<<<<");
+      Console.WriteLine(">>>>>-You Won!-<<<<<<<");
     }
   }
 }
-
-
-// podsumowanie:
-// dodałem wszystkie potrzebne klasy i funkcje
-// dodałem obsługę komend
-// zaimplementowałem wszystkie rzeczy potrzebne do granie w pasjansa
-// gra działa z tego co wiem dobrze
-// bardzo się starałem i cieszę się, że skończyłem ten projekt
-// Dziękuję za przeczytanie! :]
